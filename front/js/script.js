@@ -1,45 +1,29 @@
-//Récupération des pièces eventuellement stockées dans le localStorage
-let items = window.localStorage.getItem('products');
 
-//requêter l'Api pour lui demander l'ensemble des produits
-async function fetchProducts () {
-
-  if (items === null) {
-    const r = await fetch('http://localhost:3000/api/Products', {
-      method: 'GET',
-      headers: {
-        "Accept" : "application/json"
-      }
-    });
-    items = await r.json();
-
-    const valeurItems = JSON.stringify(items);
-    window.localStorage.setItem("products", valeurItems);
-  }else {
-    items = JSON.parse(items);
-  }
-}
-
-fetchProducts().then(products => console.log(items))
+fetch('http://localhost:3000/api/Products')
+  .then(function (response) {
+    return response.json()
+  })
+  .then(function (data) {
+    displayProducts(data)
+  })
 
 
-// insérer dans la page l'ensemble des produits fournis par l'Api
-function genererItems(items) {
-  for (let i = 0; i < items.length; i++) {
+function displayProducts(data) {
+  for (let i = 0; i < data.length; i++) {
 
-    const article = items[i];
+    const article = data[i];
 
     //Récupération de l'élément du DOM
     const sectionFiches = document.querySelector(".items");
 
     // Création de lien
     const linkElement = document.createElement ("a");
-    linkElement.href = `./product.html?id=${items[i]._id}`;
+    linkElement.href = `./product.html?id=${data[i]._id}`;
 
     // Création d’une balise dédiée a un canapé
     const articleElement = document.createElement ("article"); 
 
-    //Création balise img
+    // Création balise img
     const imageElement = document.createElement ("img");
     imageElement.src = article.imageUrl;
     imageElement.alt = article.altTxt;
@@ -63,7 +47,5 @@ function genererItems(items) {
     articleElement.appendChild(nameElement);
     articleElement.appendChild(descriptionElement);
   } 
-  console.log("Les canapés sont afficher !");
 }    
 
-genererItems(items)
