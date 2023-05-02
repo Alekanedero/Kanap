@@ -42,7 +42,7 @@ function displayProducts(data) {
     // On rattache l'article au link
     linkElement.appendChild(articleElement)
     
-    //Ajout dse autre élément a article
+    //Ajout des autre élément a article
     articleElement.appendChild(imageElement);
     articleElement.appendChild(nameElement);
     articleElement.appendChild(descriptionElement);
