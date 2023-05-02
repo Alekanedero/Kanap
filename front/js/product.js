@@ -1,13 +1,16 @@
 // récupération de l'id du produit
 
-
 const url = window.location.search
 const idSearch = new URLSearchParams(url)
 const idGet = idSearch.get('id')
 console.log(idGet);
 
+
+// const id = event.target.dataset._id;
+// fetch(`http://localhost:3000/api/products/${id}`)
+
 //récupération des données du produit spécifique via l'API
-fetch('http://localhost:3000/api/products/'+ idGet)
+fetch(`http://localhost:3000/api/products/` + idGet)
   .then(function (response) {
       return response.json()
     })
@@ -39,6 +42,8 @@ function displayProducts(data) {
     
     const colorOption = document.createElement('option');
     colorOption.setAttribute('value', choiseColor[i]);
+    
+    console.log(colorOption);
     colors.appendChild(colorOption);
     colorOption.innerText = choiseColor[i]
   }
