@@ -1,7 +1,3 @@
-// récupération de l'id du produit
-const url = window.location.search
-const idSearch = new URLSearchParams(url)
-const idGet = idSearch.get('_id')
 
 fetch('http://localhost:3000/api/Products')
   .then(function (response) {
@@ -51,13 +47,4 @@ function displayProducts(data) {
     articleElement.appendChild(nameElement);
     articleElement.appendChild(descriptionElement);
   } 
-}    
-
-// Extraction des paramètres de l'URL
-const urlParams = new URLSearchParams(window.location.search);
-
-// Récupération de la valeur de l'ID
-const id = urlParams.get('_id');
-
-// Stockage de l'ID dans le localStorage
-localStorage.setItem('_id', id);
+}

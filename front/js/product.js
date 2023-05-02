@@ -14,4 +14,28 @@ let products = fetch('http://localhost:3000/api/products/'+ idGet)
   })
 
 
-function displayProducts(data)
+function displayProducts(data) {  
+
+  const title = document.querySelector('#title');
+  title.innerText = data.name; 
+
+  const img = document.querySelector('.item__img');
+  img.src = data.imageUrl;
+  img.alt = data.altTxt;
+
+  const prix = document.getElementById('price');
+  prix.innerText = data.price;
+
+  const description = document.getElementById('description');
+  description.innerText = data.description;
+
+  // const couleurs = document.getElementById('colors');
+  // const choixCouleur = data.colors;
+
+}
+
+displayProducts(data);
+
+
+
+
