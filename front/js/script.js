@@ -4,7 +4,8 @@ fetch('http://localhost:3000/api/Products')
     return response.json()
   })
   .then(function (data) {
-    displayProducts(data)
+    displayProducts(data);
+    // console.log(data)
   })
 
 
