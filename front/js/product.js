@@ -2,6 +2,7 @@
 const url = window.location.search
 const paramUrl = new URLSearchParams(url)
 const idProduct = paramUrl.get('id')
+console.log(idProduct)
 
 //récupération des données du produit spécifique via l'API
 fetch(`http://localhost:3000/api/products/` + idProduct)
@@ -10,16 +11,15 @@ fetch(`http://localhost:3000/api/products/` + idProduct)
     })
   .then(function (data) {
       displayProduct(data);
-
     })
 
 
-function displayProduct(data) {  
+function displayProduct(data) {
 
   const img = document.querySelector('.item__img img');
   img.src = data.imageUrl;
   img.alt = data.altTxt;
-  
+
   const title = document.querySelector('#title');
   title.innerText = data.name; 
 
@@ -44,4 +44,9 @@ function displayProduct(data) {
   }
 }
 
-function addToCart (key, valeur);
+function addToCart (key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+console.log(addToCart())
+  
