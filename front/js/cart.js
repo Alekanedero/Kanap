@@ -1,4 +1,4 @@
-// récupération du panier dans le local (dans un tableau)
+// récupération dans le local du panier (dans un tableau)
 const getCart = JSON.parse(localStorage.getItem('cart'));
 
 for(element of getCart) {
