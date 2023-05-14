@@ -22,8 +22,8 @@ for(element of getCart) {
 
         const article = document.createElement('article');
         article.setAttribute('class', 'cart__item')
-        article.setAttribute('data-id', data.id)
-        article.setAttribute('data-color', data.color)
+        article.setAttribute('data-id', id)
+        article.setAttribute('data-color', color)
         cart.appendChild(article);
 
         const div_img = document.createElement('div')
