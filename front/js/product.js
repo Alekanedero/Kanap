@@ -1,8 +1,6 @@
 // récupération de l'id du produit
-const url = window.location.search
-const paramUrl = new URLSearchParams(url)
-const idProduct = paramUrl.get('id')
-console.log(idProduct)
+const newUrl = new URL(window.location.href);
+let idProduct = newUrl.searchParams.get('id');
 
 //récupération des données du produit spécifique via l'API
 fetch(`http://localhost:3000/api/products/` + idProduct)
@@ -44,39 +42,51 @@ function displayProduct(data) {
 }
 
 
-// crée le panier
-const addToCart= document.querySelector("#addToCart") 
-addToCart.addEventListener("click", cart)
+// Gestion du panier
 
-// ajouter dans le panier
-function cart() {
-  let quantity = document.querySelector('#quantity').value
-  let colorChoice = document.querySelector('option:checked').value
+const btnAddToCart= document.querySelector("#addToCart") 
+btnAddToCart.addEventListener("click", addToCart)
 
-  let cartJson = {
+
+function addToCart() {
+
+  let choiceQuantity = document.querySelector('#quantity').value;
+  let choiceColor = document.querySelector('option:checked').value;
+
+  let item = {
     id : idProduct,
-    quantity : Number(quantity),
-    color : colorChoice
+    quantity : Number(choiceQuantity),
+    color : choiceColor
   }
-let cartStringify = JSON.stringify(cartJson);
-    localStorage.setItem("cart", cartStringify)
-    console.log(cartStringify)
 
-  // si local vide
-  if(quantity != 0 && color != "" && localStorage.cart != null){
+  // si le localstorage est vide
+  if (choiceQuantity != 0 && choiceColor != '' && localStorage.cart == null){ 
+
+    const array = []
+    localStorage.setItem('cart', array)
+    array.push(item)
+    localStorage.setItem('cart', JSON.stringify(array))
+
+  // si le localstorage contient des datas
+  } else if (choiceQuantity != 0 && choiceColor != '' && localStorage.cart != null) {
+
+    // on récupère dans un tableau le panier du local
+    const getItems = JSON.parse(localStorage.getItem('cart'));
+
+    // cherche dans le tableau même id et même couleur, si rien return undefined
+    let foundItem = getItems.find(item => item.id === idProduct && item.color === choiceColor);
     
+    // si différent de undefined, c'est qui existe déja, donc quantité += avec origine
+    if (foundItem != undefined) {
+      foundItem.quantity += Number(choiceQuantity);
+      localStorage.setItem('cart', JSON.stringify(getItems))
 
-  // si local a déja des donnée
-  }else {
-    let getCart = localStorage.getItem("cart");
-    let objJson = JSON.parse(getCart)
+    // sinon quantity choix utilisateur, on le push dans le local
+    }else {
+      item.quantity = Number(choiceQuantity);
+      getItems.push(item);
+      localStorage.setItem('cart', JSON.stringify(getItems))
+    }
+  } 
+}    
 
-  }
-
-  
-}
-
-
-
-
-  
