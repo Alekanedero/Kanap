@@ -59,34 +59,36 @@ function addToCart() {
     color : choiceColor
   }
 
-  // si le localstorage est vide
-  if (choiceQuantity != 0 && choiceColor != '' && localStorage.cart == null){ 
+  if (choiceQuantity == 0 && choiceColor == '') {
+    alert('Veuillez selectioner une couleur/quantitée')
+    return false
+  }
 
-    const array = []
-    localStorage.setItem('cart', array)
-    array.push(item)
-    localStorage.setItem('cart', JSON.stringify(array))
+  // si le localstorage est vide
+  if (localStorage.cart == null) { 
+    const cart = []
+    localStorage.setItem('cart', cart)
+    cart.push(item)
+    localStorage.setItem('cart', JSON.stringify(cart))
 
   // si le localstorage contient des datas
-  } else if (choiceQuantity != 0 && choiceColor != '' && localStorage.cart != null) {
+  } else {
 
     // on récupère dans un tableau le panier du local
-    const getItems = JSON.parse(localStorage.getItem('cart'));
+    const cart = JSON.parse(localStorage.getItem('cart'));
 
     // cherche dans le tableau même id et même couleur, si rien return undefined
-    let foundItem = getItems.find(item => item.id === idProduct && item.color === choiceColor);
+    let foundItem = cart.find(item => item.id === idProduct && item.color === choiceColor);
     
     // si différent de undefined, c'est qui existe déja, donc quantité += avec origine
     if (foundItem != undefined) {
       foundItem.quantity += Number(choiceQuantity);
-      localStorage.setItem('cart', JSON.stringify(getItems))
+      localStorage.setItem('cart', JSON.stringify(cart))
 
     // sinon quantity choix utilisateur, on le push dans le local
-    }else {
-      item.quantity = Number(choiceQuantity);
-      getItems.push(item);
-      localStorage.setItem('cart', JSON.stringify(getItems))
+    } else {
+      cart.push(item);
+      localStorage.setItem('cart', JSON.stringify(cart))
     }
   } 
-}    
-
+}

@@ -1,12 +1,11 @@
 // récupération dans le local du panier (dans un tableau)
-const getCart = JSON.parse(localStorage.getItem('cart'));
+const cart = JSON.parse(localStorage.getItem('cart'));
 
-for(element of getCart) {
+for(item of cart) {
 
-    const id = element.id
-    const quantity = element.quantity
-    const color = element.color
-    console.log(id, quantity, color)
+    const id = item.id
+    const quantity = item.quantity
+    const color = item.color
 
     fetch(`http://localhost:3000/api/products/` + id)
     .then(function (response) {
@@ -33,7 +32,7 @@ for(element of getCart) {
         // img
         const img = document.createElement ('img');
         img.setAttribute('src', data.imageUrl)
-        img.setAttribute('alt', element.altTxt)
+        img.setAttribute('alt', item.altTxt)
         div_img.appendChild(img)
 
         const div_content = document.createElement('div')
@@ -93,3 +92,4 @@ for(element of getCart) {
         div_delete.appendChild('p_delete')
     }
 }
+
