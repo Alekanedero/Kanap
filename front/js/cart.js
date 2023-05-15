@@ -17,13 +17,13 @@ for(item of cart) {
 
     function displayProduct(data) {
 
-        const cart = document.querySelector('#cart__items')
+        const cartItem = document.querySelector('#cart__items')
 
         const article = document.createElement('article');
         article.setAttribute('class', 'cart__item')
         article.setAttribute('data-id', id)
         article.setAttribute('data-color', color)
-        cart.appendChild(article);
+        cartItem.appendChild(article);
 
         const div_img = document.createElement('div')
         div_img.setAttribute('class', 'cart__item__img')
@@ -81,17 +81,76 @@ for(item of cart) {
         input.setAttribute('value', quantity)
         div_quantity.appendChild(input)
 
+        // modifier de la quantité
+        input.addEventListener('change', quantityModification)   
+                
+        function quantityModification() {
+            // récup balise article
+            const itemGet = input.closest('article')
+            const itemGetId = itemGet.dataset.id
+            const itemGetColor = itemGet.dataset.color
+            console.log(itemGetColor)
+
+            for (item of cart) {
+                if (itemGetId == item.id && itemGetColor == item.color) {
+                    item.quantity = Number(input.value)
+                    localStorage.setItem('cart', JSON.stringify(cart))
+                }
+            }
+        }
+
         const div_delete = document.createElement('div')
         div_delete.setAttribute('class', 'cart__item__content__settings__delete')
         div_content__settings.appendChild(div_delete)
 
-        // supprimer
+        // afficher btn supprimer
         const p_delete = document.createElement('p')
         p_delete.setAttribute('class', 'deleteItem')
         p_delete.innerText = 'Supprimer'
         div_delete.appendChild(p_delete)
+
+        // supprimer l'élement
+        p_delete.addEventListener('click', deleteItem) 
+            
+        function deleteItem() {
+            const itemGet = input.closest('article')
+            const itemGetId = itemGet.dataset.id
+            const itemGetColor = itemGet.dataset.color
+
+            for (let i = 0; i < cart.length; i++) {
+                if (cart[i].id === itemGetId && cart[i].color === itemGetColor) {
+                    // Supprime l'élément du tableau
+                    cart.splice(i, 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    // Supprime l'élément du DOM
+                    itemGet.remove();
+                    break;
+                }
+            }
+        }
     }
 }
+
+// function getTotal() {
+//     let cart = localStorage.getItem("cart");
+//     let total = 0;
+//     for (item in cart) {
+//         total += item.quantity * item.price;
+//         // console.log(total)
+//     }
+//     return total;
+// }
+
+// // getTotal()
+
+// const inputQuantity = document.querySelector('input');
+// console.log(inputQuantity)
+
+// inputQuantity.addEventListener('input', function(event) {
+//     let value = event.target.value;
+//     console.log("Nouvelle valeur de l'input : ", value)
+// })
+
 
 // location.reload();
 
