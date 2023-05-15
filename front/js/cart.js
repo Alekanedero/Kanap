@@ -27,7 +27,7 @@ for(item of cart) {
 
         const div_img = document.createElement('div')
         div_img.setAttribute('class', 'cart__item__img')
-        cart.appendChild(div_img)
+        article.appendChild(div_img)
 
         // img
         const img = document.createElement ('img');
@@ -37,11 +37,11 @@ for(item of cart) {
 
         const div_content = document.createElement('div')
         div_content.setAttribute('class','cart__item__content')
-        cart.appendChild(div_content)
+        article.appendChild(div_content)
 
         const div_content__description = document.createElement('div')
         div_content__description.setAttribute('class', 'cart__item__content__description')
-        cart.appendChild(div_content__description)
+        div_content.appendChild(div_content__description)
 
         // titre
         const title = document.createElement('h2')   
@@ -64,22 +64,22 @@ for(item of cart) {
 
         const div_quantity = document.createElement('div')
         div_quantity.setAttribute('class', 'cart__item__content__settings__quantity')
-        div_content__settings.appendChild('div_quantity')
+        div_content__settings.appendChild(div_quantity)
 
         // quantité
         const p_quantity = document.createElement('p')
-        p_quantity.innerText = 'Qté' + quantity
-        div_quantity.appendChild('p_quantity')
+        p_quantity.innerText = 'Qté : '
+        div_quantity.appendChild(p_quantity)
 
         // input
         const input = document.createElement('input')
-        input.appendChild('type', 'number')
-        input.appendChild('class', 'itemQuantity')
-        input.appendChild('name', 'itemQuantity')
-        input.appendChild('min', '1')
-        input.appendChild('max', '100')
-        input.appendChild('value', '42')
-        div_content__settings.appendChild('input')
+        input.setAttribute('type', 'Number' )
+        input.setAttribute('class', 'itemQuantity')
+        input.setAttribute('name', 'itemQuantity')
+        input.setAttribute('min', '1')
+        input.setAttribute('max', '100')
+        input.setAttribute('value', quantity)
+        div_quantity.appendChild(input)
 
         const div_delete = document.createElement('div')
         div_delete.setAttribute('class', 'cart__item__content__settings__delete')
@@ -88,8 +88,12 @@ for(item of cart) {
         // supprimer
         const p_delete = document.createElement('p')
         p_delete.setAttribute('class', 'deleteItem')
-        p_delete.innerText = Supprimer
-        div_delete.appendChild('p_delete')
+        p_delete.innerText = 'Supprimer'
+        div_delete.appendChild(p_delete)
     }
 }
+
+// location.reload();
+
+
 
