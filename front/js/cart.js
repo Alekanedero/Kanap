@@ -89,7 +89,6 @@ for(item of cart) {
             const itemGet = input.closest('article')
             const itemGetId = itemGet.dataset.id
             const itemGetColor = itemGet.dataset.color
-            console.log(itemGetColor)
 
             for (item of cart) {
                 if (itemGetId == item.id && itemGetColor == item.color) {
@@ -105,23 +104,26 @@ for(item of cart) {
         div_content__settings.appendChild(div_delete)
 
         // afficher btn supprimer
-        const p_delete = document.createElement('p')
-        p_delete.setAttribute('class', 'deleteItem')
-        p_delete.innerText = 'Supprimer'
-        div_delete.appendChild(p_delete)
+        const btnDelete = document.createElement('p')
+        btnDelete.setAttribute('class', 'deleteItem')
+        btnDelete.innerText = 'Supprimer'
+        div_delete.appendChild(btnDelete)
 
         // supprimer l'élement
-        p_delete.addEventListener('click', deleteItem) 
+        btnDelete.addEventListener('click', deleteItem) 
             
         function deleteItem() {
-            const itemGet = input.closest('article')
+            // permet de trouver l'élément article parent dans lequel se trouve l'élément btnDelete ('p')
+            const itemGet = btnDelete.closest('article')
             const itemGetId = itemGet.dataset.id
             const itemGetColor = itemGet.dataset.color
 
+            // parcour les éléments du tableau cart pour trouver l'élément correspondant à l'ID et à la couleur spécifiés
             for (let i = 0; i < cart.length; i++) {
                 if (cart[i].id === itemGetId && cart[i].color === itemGetColor) {
-                    // Supprime l'élément du tableau
+                    // Supprime l'élément du tableau (1 étant le nombre d'objet que l'on veut supprimer)
                     cart.splice(i, 1);
+                    // mettre a jour le local
                     localStorage.setItem('cart', JSON.stringify(cart));
                     // Supprime l'élément du DOM
                     itemGet.remove();
@@ -129,9 +131,13 @@ for(item of cart) {
                 }
             }
             updateTotalPrice();
+            location.reload();
+            
         }
+        
     }
 }
+
 
 function updateTotalPrice() {
   let totalQuantity = 0;
@@ -148,12 +154,22 @@ function updateTotalPrice() {
         totalPrice += itemPrice;
 
         if (item === cart[cart.length - 1]) {
-          const totalQuantityElement = document.getElementById('totalQuantity');
-          const totalPriceElement = document.getElementById('totalPrice');
+          const totalQuantityItem   = document.getElementById('totalQuantity');
+          const totalPriceItem   = document.getElementById('totalPrice');
 
-          totalQuantityElement.textContent = totalQuantity;
-          totalPriceElement.textContent = totalPrice.toFixed(2);
+          totalQuantityItem.textContent = totalQuantity;
+          totalPriceItem.textContent = totalPrice.toFixed(2);
+
+        //   console.log(`Prix total : ${totalPrice} €`);
         }
     });
   }
 }
+
+updateTotalPrice()
+
+
+// Formulaire
+
+const form = document.querySelector('form')
+console.log(form)
