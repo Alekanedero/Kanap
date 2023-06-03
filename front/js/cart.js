@@ -169,9 +169,10 @@ totalPrice()
 // Formulaire
 
 // Regex pour la vérification des champs de saisie
-const lettersPattern = /^[a-zA-ZÀ-ÿ-]+$/
+const lettersPattern = /^[a-zA-ZÀ-ÿ-\s]+$/
 const lettersAndNumbersPattern = /^[0-9a-zA-Z-\s]+$/
-const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+const cityPattern = /^[a-zA-ZÀ-ÿ-\s]+$/
 let error = false
 
 // Vérification prénom
@@ -205,20 +206,19 @@ lastNameInput.addEventListener('input', function() {
 });
 
 // Vérification ville
+const cityInput = document.getElementById('city')
+const cityErrorMsg = document.getElementById('cityErrorMsg')
 
-const city = document.getElementById('city')
-const cityValidation = city.addEventListener('change', cityConfirmation)
-
-function cityConfirmation(){
+cityInput.addEventListener('input', function() {
   const cityValue = city.value
-  const testletters = letters.test(cityValue)
-  if(testletters){
-      const cityErrorMsg = document.getElementById('cityErrorMsg')
-      cityErrorMsg.innerText = 'Ville valide'
+  if (cityPattern.test(cityValue)) {
+    cityErrorMsg.innerText = ''
+    error = false
   } else {
-      cityErrorMsg.innerText = 'Veuillez rentrer votre ville'
+    cityErrorMsg.innerText = 'Veuillez rentrer votre ville'
+    error = true
   }
-}
+})
 
 // Vérification adresse email
 const emailInput = document.querySelector('#email');
@@ -227,7 +227,7 @@ const emailErrorMsg = document.querySelector('#emailErrorMsg');
 emailInput.addEventListener('input', function() {
   const email = emailInput.value;
   if (emailPattern.test(email)) {
-    const emailErrorMsg = document.getElementById('emailErrorMsg')
+    emailErrorMsg.innerText = '';
     error = false
   } else {
     emailErrorMsg.innerText = 'Veuillez rentrer une adresse mail valide exemple: jean@gmail.com'
@@ -255,14 +255,14 @@ submit.addEventListener('submit', (e) => {
   const products = cart.map(product => product.id_local)
 
   // vérifie que tous les champs sois remplis
-  if(contact.firstName == '' || contact.lastName == '' || contact.address == '' || contact.city == '' || contact.email == '') {
-    alert('Veuillez remplir tous les champs')
+  if(error = true) {
+    alert('Veuillez remplir tous les champs, ou modifier les erreurs.')
   }else{
-    let post = fetch('http://localhost:3000/api/Products/order', {
+    let post = fetch('http://localhost:3000/api/products/order', {
       method: 'POST',
       body: JSON.stringify({contact, products}),
       headers: {
-        'Content-Type': 'application/json; charset=utf-8'
+        'Content-Type': 'application/json'
       }
     })
     .then((response) => response.json())
