@@ -6,4 +6,5 @@ const idGet = idUrl.searchParams.get("id");
 const orderNumber = document.getElementById("orderId");
 orderNumber.innerText = `${idGet}`;
 
+// vider le local storage
 localStorage.clear();

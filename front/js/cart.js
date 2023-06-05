@@ -163,7 +163,7 @@ function totalPrice() {
         if (item === cart[cart.length - 1]) {
           const totalQuantityItem = document.getElementById("totalQuantity");
           const totalPriceItem = document.getElementById("totalPrice");
-
+          
           totalQuantityItem.textContent = totalQuantity;
           totalPriceItem.textContent = totalPrice.toFixed(2);
         }
