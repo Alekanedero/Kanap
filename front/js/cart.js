@@ -259,10 +259,10 @@ submit.addEventListener("submit", (e) => {
   };
 
   // tableau des produits
-  const products = cart.map((product) => product.id_local);
+  const products = cart.map((product) => product.id);
 
   // vérifie que tous les champs sois remplis
-  if ((error === true)) {
+  if (error === true) {
     alert("Veuillez remplir tous les champs, ou modifier les erreurs.");
   } else {
     fetch("http://localhost:3000/api/products/order", {
