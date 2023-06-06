@@ -58,15 +58,14 @@ function addToCart() {
   } else if (choiceQuantity == 0) {
     alert("Veuillez sélectionner une quantitée.");
   } else if (choiceColor == "") {
-    alert("Veuillez sélectionner une couleur.");    
+    alert("Veuillez sélectionner une couleur.");
   } else {
-
     if (localStorage.cart == null) {
       const cart = [];
       cart.push(item);
       localStorage.setItem("cart", JSON.stringify(cart));
 
-    // si le localstorage contient les datas demandées
+      // si le localstorage contient les datas demandées
     } else {
       // on récupère dans un tableau le panier du local
       const cart = JSON.parse(localStorage.getItem("cart"));
