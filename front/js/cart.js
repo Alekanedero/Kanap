@@ -178,9 +178,9 @@ if (localStorage.getItem("cart")) {
 
   // Regex pour la vérification des champs de saisie
   const lettersPattern = /^[a-zA-ZÀ-ÿ-\s]+$/;
-  const lettersAndNumbersPattern = /^[0-9a-zA-Z-\s]+$/;
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const cityPattern = /^[a-zA-ZÀ-ÿ-\s]+$/;
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  
   let error = false;
 
   // Vérification prénom
