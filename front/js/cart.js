@@ -181,6 +181,7 @@ if (localStorage.getItem("cart")) {
   const cityPattern = /^[a-zA-ZÀ-ÿ-\s]+$/;
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+  // renvoi true or false
   function validateForm() {
     let error = false;
 
