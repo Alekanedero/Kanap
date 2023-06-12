@@ -4,7 +4,6 @@ fetch("http://localhost:3000/api/Products")
   })
   .then(function (data) {
     displayProducts(data);
-    // console.log(data)
   });
 
 function displayProducts(data) {

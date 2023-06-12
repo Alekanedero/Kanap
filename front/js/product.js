@@ -86,5 +86,6 @@ function addToCart() {
         localStorage.setItem("cart", JSON.stringify(cart));
       }
     }
+    alert("Ajouter au panier !")
   }
 }
