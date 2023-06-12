@@ -55,6 +55,7 @@ function addToCart() {
 
   if (choiceQuantity == 0 && choiceColor == "") {
     alert("Veuillez sélectionner une couleur et une quantitée.");
+    return false;
   } else if (choiceQuantity == 0) {
     alert("Veuillez sélectionner une quantitée.");
   } else if (choiceColor == "") {
