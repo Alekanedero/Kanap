@@ -241,6 +241,13 @@ if (localStorage.getItem("cart")) {
     const error = validateForm();
 
     if (error) {
+      alert("Veuillez corriger le formulaire s'il vous plait.. !")
+      return;
+    }
+    // si local vide, ou si longeur du tableau =0 (vide)
+    if (!localStorage.getItem("cart") || JSON.parse(localStorage.getItem("cart")).length === 0) {
+      alert('Votre panier est vide !')
+      return;
     } else {
       const contact = {
         firstName: document.getElementById("firstName").value,
